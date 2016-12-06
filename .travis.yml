@@ -1,21 +1,18 @@
 language: generic
+os: osx
 
-matrix:
-  include:
-    # OSRF has bottles of Gazebo on Yosemite, so test gazebo_ros on that.
-    - os: osx
-      osx_image: xcode7
-      env: ROS_DISTRO=indigo ROS_CONFIGURATION=gazebo_ros
+osx_image:
+  - xcode7.3
+  - xcode8
+  - xcode8.1
 
-    # Check up to rviz on El Capitan (this build sometimes times out).
-    - os: osx
-      osx_image: xcode8
-      env: ROS_DISTRO=indigo ROS_CONFIGURATION=rviz
+env:
+  - ROS_DISTRO=indigo
+  - ROS_DISTRO=kinetic
 
-    # Building anything GUI from Kinetic fails due to qt4/5 issues.
-    - os: osx
-      osx_image: xcode8
-      env: ROS_DISTRO=kinetic ROS_CONFIGURATION=ros_base
+env:
+  - ROS_CONFIGURATION=ros_comm
+  - ROS_CONFIGURATION=rviz
 
 cache:
   directories:
