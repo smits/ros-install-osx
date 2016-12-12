@@ -1,19 +1,33 @@
 language: generic
 os: osx
 
-env:
-  - ROS_DISTRO=indigo ROS_CONFIGURATION=ros_comm
-  - ROS_DISTRO=indigo ROS_CONFIGURATION=rviz
-  - ROS_DISTRO=kinetic ROS_CONFIGURATION=ros_comm
-  - ROS_DISTRO=kinetic ROS_CONFIGURATION=rviz
-
 matrix:
   include:
   - osx_image: xcode7.3
+    env: ROS_DISTRO=indigo ROS_CONFIGURATION=ros_comm
   - osx_image: xcode8
+    env: ROS_DISTRO=indigo ROS_CONFIGURATION=ros_comm
   - osx_image: xcode8.1
-
-
+    env: ROS_DISTRO=indigo ROS_CONFIGURATION=ros_comm
+  - osx_image: xcode7.3
+    env: ROS_DISTRO=indigo ROS_CONFIGURATION=rviz
+  - osx_image: xcode8
+    env: ROS_DISTRO=indigo ROS_CONFIGURATION=rviz
+  - osx_image: xcode8.1
+    env: ROS_DISTRO=indigo ROS_CONFIGURATION=rviz
+  - osx_image: xcode7.3
+    env: ROS_DISTRO=kinetic ROS_CONFIGURATION=ros_comm
+  - osx_image: xcode8
+    env: ROS_DISTRO=kinetic ROS_CONFIGURATION=ros_comm
+  - osx_image: xcode8.1
+    env: ROS_DISTRO=kinetic ROS_CONFIGURATION=ros_comm
+  - osx_image: xcode7.3
+    env: ROS_DISTRO=kinetic ROS_CONFIGURATION=rviz
+  - osx_image: xcode8
+    env: ROS_DISTRO=kinetic ROS_CONFIGURATION=rviz
+  - osx_image: xcode8.1
+    env: ROS_DISTRO=kinetic ROS_CONFIGURATION=rviz
+  
 cache:
   directories:
     - $HOME/Library/Caches/pip
