@@ -97,7 +97,7 @@ do_install()
 
   # ROS infrastructure tools
   brew install libyaml || true
-  pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl
+  pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl nose
 
   # Initialize and update rosdep
   if [ ! -d /etc/ros/rosdep/ ]; then
