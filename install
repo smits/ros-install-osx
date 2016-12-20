@@ -75,8 +75,10 @@ do_install()
     echo
     echo "    sudo chown -R $USER:admin /usr/local/*"
   fi
-
-  # Brewed Python
+ 
+ for i in $( pip freeze ); do sudo -H pip uninstall -y $i; done
+ 
+ # Brewed Python
   if [ $(which python) != "/usr/local/bin/python" ]; then
     brew install python
     mkdir -p ~/Library/Python/2.7/lib/python/site-packages
@@ -97,6 +99,7 @@ do_install()
 
   # ROS infrastructure tools
   brew install libyaml || true
+  pip install --upgrade pip
   pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl nose
 
   # Initialize and update rosdep
