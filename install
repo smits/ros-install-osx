@@ -104,7 +104,7 @@ do_install()
 
   # Some manual installations that just won't work from rosdep automatically
   sudo -H pip install -U nose
-  brew install pyqt5 --with-python --with-python3
+  brew install pyqt5 --with-python --without-python3
   brew install gcc
   brew link --overwrite gcc
 
