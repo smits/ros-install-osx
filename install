@@ -100,7 +100,13 @@ do_install()
   # ROS infrastructure tools
   brew install libyaml || true
   sudo -H pip install --upgrade pip
-  sudo -H pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl nose
+  sudo -H pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl
+
+  # Some manual installations that just won't work from rosdep automatically
+  sudo -H pip install -U nose
+  brew install pyqt5 --with-python --with-python3
+  brew install gcc
+  brew link --overwrite gcc
 
   # Initialize and update rosdep
   if [ ! -d /etc/ros/rosdep/ ]; then
