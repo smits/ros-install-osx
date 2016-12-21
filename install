@@ -157,7 +157,8 @@ do_install()
   fi
 
   # Parallel build.
-  CMAKE_PREFIX_PATH=/usr/local/Cellar/qt5/5.7.0/ catkin config --install  --install-space ${ROS_INSTALL_DIR} \
+  export CMAKE_PREFIX_PATH=/usr/local/Cellar/qt5/5.7.0/
+  catkin config --install  --install-space ${ROS_INSTALL_DIR} \
     --cmake-args \
     -DCATKIN_ENABLE_TESTING=1 \
     -DCMAKE_BUILD_TYPE=Release \
