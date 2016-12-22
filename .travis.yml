@@ -34,4 +34,4 @@ cache:
     - $HOME/Library/Caches/Homebrew
 
 script:
-  - travis_wait ./install
+  - travis_wait 60 ./install
