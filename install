@@ -98,14 +98,14 @@ do_install()
   brew tap homebrew/python
 
   # ROS infrastructure tools
-  brew install libyaml || true
+  brew install -v libyaml || true
   sudo -H pip install --upgrade pip
   sudo -H pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl
 
   # Some manual installations that just won't work from rosdep automatically
   sudo -H pip install -U nose
-  brew install pyqt5 --with-python --without-python3
-  brew install gcc
+  brew install -v pyqt5 --with-python --without-python3
+  brew install -v gcc || true #disable error escalation for this one
   brew link --overwrite gcc
 
   # Initialize and update rosdep
