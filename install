@@ -22,7 +22,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-ROS_DISTRO=${ROS_DISTRO:-indigo}
+ROS_DISTRO=${ROS_DISTRO:-kinetic}
 ROS_CONFIGURATION=${ROS_CONFIGURATION:-desktop_full}
 ROS_EXTRA_PACKAGES=${ROS_EXTRA_PACKAGES:-}
 ROS_INSTALL_DIR=${ROS_INSTALL_DIR:-/opt/ros/${ROS_DISTRO}}
@@ -75,9 +75,9 @@ do_install()
     echo
     echo "    sudo chown -R $USER:admin /usr/local/*"
   fi
- 
- for i in $( pip freeze ); do sudo -H pip uninstall -y $i; done
- 
+
+ #for i in $( pip freeze ); do sudo -H pip uninstall -y $i; done
+
  # Brewed Python
   if [ $(which python) != "/usr/local/bin/python" ]; then
     brew install python
@@ -100,11 +100,13 @@ do_install()
   # ROS infrastructure tools
   brew install -v libyaml || true
   sudo -H pip install --upgrade pip
-  sudo -H pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl
+  sudo -H pip install -U setuptools rosdep rosinstall_generator wstool rosinstall catkin_tools bloom empy sphinx pycurl trollius
 
   # Some manual installations that just won't work from rosdep automatically
   sudo -H pip install -U nose
   brew install -v pyqt5 --with-python --without-python3
+  # Fix wrong include dir in rviz sip packages
+  sudo ln -s /usr/local/share/sip/Qt5 /usr/local/share/sip/PyQt5 || true
   brew install -v gcc || true #disable error escalation for this one
   brew link --overwrite gcc
 
@@ -149,6 +151,13 @@ do_install()
     popd
   fi
 
+  # This patch originates from here: https://github.com/ros-visualization/python_qt_binding/pull/40
+  if [ -d src/python_qt_binding ]; then
+      pushd src/python_qt_binding
+      curl https://raw.githubusercontent.com/smits/python_qt_binding/01db8c3c1c3579b6704b2cd362cfa0f0bbb63695/cmake/sip_configure.py > cmake/sip_configure.py
+      popd
+  fi
+  
   # Package dependencies.
   rosdep install --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} -y --as-root pip:no \
       --skip-keys="python-qt-bindings-qwt5 libqt5-core libqt5-gui libqt5-opengl libqt5-opengl-dev libqt5-widgets qt5-qmake qtbase5-dev"
