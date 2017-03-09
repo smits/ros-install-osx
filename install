@@ -109,6 +109,8 @@ do_install()
   sudo ln -s /usr/local/share/sip/Qt5 /usr/local/share/sip/PyQt5 || true
   brew install -v gcc || true #disable error escalation for this one
   brew link --overwrite gcc
+  brew install numpy
+  brew link --overwrite numpy
 
   # Initialize and update rosdep
   if [ ! -d /etc/ros/rosdep/ ]; then
