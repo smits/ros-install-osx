@@ -22,5 +22,7 @@ cache:
     - $HOME/Library/Caches/pip
     - $HOME/Library/Caches/Homebrew
 
+before_install:
+  - pip uninstall --yes numpy
 script:
   - ./install
